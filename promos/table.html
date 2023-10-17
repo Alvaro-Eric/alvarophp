@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/footable.core.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/footable-demos.css" rel="stylesheet" type="text/css"/>
+        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+        
+       
+       <script type="text/javascript">
+           $(document).ready(function(){ 
+               console.log("Start");
+    $(".btnEdit").bind("click", Edit); 
+    $(".btnDelete").bind("click", Delete); 
+    $("#btnAdd").bind("click", Add); });
+           
+      function Add(){ 
+          console.log("Clicked Add");
+          $("#tblData tbody").append( "<tr>"+ "<td><input type='text'/></td>"+ "<td><input type='text'/></td>"+ "<td><input type='text'/></td>"+ "<td><img src='images/disk.png' class='btnSave'><img src='images/delete.png' class='btnDelete'/></td>"+ "</tr>"); 
+          $(".btnSave").bind("click", Save);	
+          $(".btnDelete").bind("click", Delete); }; 
+      
+      function Save(){ 
+          var par = $(this).parent().parent();//tr 
+          var tdName = par.children("td:nth-child(1)");
+          var tdPhone = par.children("td:nth-child(2)"); 
+          var tdEmail = par.children("td:nth-child(3)"); 
+          var tdButtons = par.children("td:nth-child(4)"); 
+          tdName.html(tdName.children("input[type=text]").val()); 
+          tdPhone.html(tdPhone.children("input[type=text]").val()); 
+          tdEmail.html(tdEmail.children("input[type=text]").val()); 
+          tdButtons.html("<img src='images/delete.png' class='btnDelete'/><img src='images/pencil.png' class='btnEdit'/>"); 
+          $(".btnEdit").bind("click", Edit); 
+          $(".btnDelete").bind("click", Delete); 
+      };
+      
+      function Edit(){ var par = $(this).parent().parent(); //tr 
+        var tdName = par.children("td:nth-child(1)"); 
+        var tdPhone = par.children("td:nth-child(2)"); 
+        var tdEmail = par.children("td:nth-child(3)"); 
+        var tdButtons = par.children("td:nth-child(4)"); 
+        tdName.html("<input type='text' id='txtName' value='"+tdName.html()+"'/>"); 
+        tdPhone.html("<input type='text' id='txtPhone' value='"+tdPhone.html()+"'/>"); 
+        tdEmail.html("<input type='text' id='txtEmail' value='"+tdEmail.html()+"'/>"); 
+        tdButtons.html("<img src='images/disk.png' class='btnSave'/>"); 
+        $(".btnSave").bind("click", Save); 
+        $(".btnEdit").bind("click", Edit); 
+        $(".btnDelete").bind("click", Delete); 
+    };
+function Delete(){ 
+    var par = $(this).parent().parent();//tr 
+    par.remove(); };
+
+</script>
+    </head>
+    <body>      
+       
+                        <table id="tblData" class="table demo table-bordered">	
+                        <thead> 
+                            <tr> <th>DESTINATION</th> <th>ECONOMY CLASS</th> <th>BUSINESS CLASS</th> <th></th> </tr> 
+                        </thead> 
+                        <tbody> </tbody>
+                        <tfoot><tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><button id="btnAdd" class="btn btn-default">New</button> </td>
+                            </tr></tfoot> </table>
+    </body>
+</html>
